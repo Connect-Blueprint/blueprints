@@ -9,23 +9,7 @@
     {
       "id": "create-page",
       "name": "Create Page",
-      "description": "Create page.",
-      "inputs":[
-        {
-          "id": "database_id",
-          "name": "Database",
-          "type": "select",
-          "required": true,          
-          "placeholder": "My Database"
-        },
-        {
-          "id": "page_title",          
-          "name": "Page Title",
-          "type": "text",
-          "required": true,
-          "placeholder": "My New Page"
-        }
-      ]
+      "description": "Create page."
     }
   ],
   "preferences": [
