@@ -1,15 +1,26 @@
 
+// Set API base URL
 const apiURL = "https://api.notion.com/";
+
+// Set headers 
+// Get API token with → Blueprint.userPreferences.notion_token
 const headers = {
     "Authorization": "Bearer " + Blueprint.userPreferences.notion_token,
     "Notion-Version": "2021-08-16",
     "Content-Type": "application/json;charset=UTF-8",
 };
 
-Blueprint.onListInputs = async function() {
 
+// When interface request Blueprint inputs
+Blueprint.onListInputs = async function() {
+    
+    // Set database input
     let database = Blueprint.newInput("database_id", "Database", "select")
+    
+    // List available databases when interface request database input options
     database.onListOptions = async function() {
+        
+        // Use `UrlFetch` to call Notion API and get databases
         let fetchedDatabases = await UrlFetch(apiURL + "v1/search", {
             method: "post",
             headers: headers,
@@ -24,16 +35,24 @@ Blueprint.onListInputs = async function() {
                 }
             }),
         });
+        
+        // For each available databases...
         JSON.parse(fetchedDatabases).results.map(function(db) {
+            // Create a new input iption
             database.newOption(db.id, (db.title[0].plain_text ? db.title[0].plain_text : "Untitled"), null)
         })
     }
-
+    
+    // Set page title input
     let title = Blueprint.newInput("page_title", "Page Title", "text")
 
+    // If the user as selected a database...
     if (database.getValue()) {
+        
+        // Get database id
         const database_id = database.getValue()
-
+        
+        // Fetch database properties
         const response = await UrlFetch(apiURL + "v1/databases/" + database_id, {
             method: "get",
             headers: headers
@@ -42,32 +61,43 @@ Blueprint.onListInputs = async function() {
 
         const properties = json.properties
         const propertyNames = Object.keys(properties).reverse()
-
+        
+        // For each properties...
         propertyNames.forEach(function(name) {
             const property = properties[name];
-
-            if (["number", "rich_text", "url", "email", "phone_number", "date", "checkbox", "select", "multi_select", "relation"].includes(property.type)) {
-
+            
+            // Filter compatible properties
+            if (["number", "rich_text", "url", "email", "phone_number", "date", "checkbox", "select", "multi_select"].includes(property.type)) {
+                
+                // Set input id with property ID and Type
                 let inputId = "property::" + property.type + "::" + property.id
                 
-                if (["number", "rich_text", "url", "email", "phone_number"].includes(property.type)) {
+                // For property that can be set via a text input...
+                if (["number", "rich_text", "url", "email", "phone_number"].includes(property.type)) {                    
+                    // Create a text input
                     const propInput = Blueprint.newInput(inputId, name, "text")
-                    
-                } else if (["date"].includes(property.type)) {
+                
+                // For date property...
+                } else if ("date" === property.type) {
+                    // Create a date input
                     const propInput = Blueprint.newInput(inputId, name, "date")
                 
-                } else if (["checkbox"].includes(property.type)) {
+                // For checkbox property...
+                } else if ("checkbox" === property.type) {
+                    // Create a select input...
                     const propInput = Blueprint.newInput(inputId, name, "select")
+                    // With two input options: true and false
                     propInput.newOption("true", "Checked", null)
                     propInput.newOption("false", "Unhecked", null)
-                    
+                
+                // For property that can be set via a select input...
                 } else if (["select", "multi_select"].includes(property.type)){
+                    // Create a select input
                     const propInput = Blueprint.newInput(inputId, name, "select")
-                    propInput.onListOptions = async function() {
-                        property[property.type].options.map(function(option) {
-                            propInput.newOption(option.id, option.name, "https://raw.githubusercontent.com/HenriChabrand/ios-shortcut/main/extensions/notion/assets/ios_select_" + option.color + ".png")
-                        })
-                    }
+                    // With corresponding input options...
+                    property[property.type].options.map(function(option) {
+                        propInput.newOption(option.id, option.name, "https://raw.githubusercontent.com/HenriChabrand/ios-shortcut/main/extensions/notion/assets/ios_select_" + option.color + ".png")
+                    })                    
                 }
             }
         });
@@ -76,15 +106,12 @@ Blueprint.onListInputs = async function() {
 
 
 Blueprint.onExecution = async function() {
-    print("Distant onExecution")
-    print(JSON.stringify(Blueprint.userInputs))
    
+  // Get user inputs
   const title = Blueprint.userInputs.page_title
   const database_id = Blueprint.userInputs.database_id
-
-  print("title : "+ title)
-  print("database_id : "+ database_id)
-
+  
+  // Set request body
   const requestBody = {
     parent: {
       database_id: database_id,
@@ -92,38 +119,31 @@ Blueprint.onExecution = async function() {
     properties: {
       title: {
         title: [
-        {
-          text: {
-            content: title
-          }
-        }
+            {
+              text: {
+                content: title
+              }
+            }
         ]
       }      
     }
   }
-  
-  print(JSON.stringify(requestBody))
    
   const inputIds = Object.keys(Blueprint.userInputs)
-  print(inputIds)
+  
+  // For each input ids...
   inputIds.forEach(function (inputId) {
-    const input = Blueprint.userInputs[inputId]
-    print(input)
+    
     if(inputId === "page_title" || inputId === "database_id")
       return 
+      
+    // Get input value
+    const value = Blueprint.userInputs[inputId]
     
-    print("Is Property")
-    print(inputId)
+    // Extract property ID and Type
     const propIdAndType = inputId.replace("property::","").split("::")
-    print(propIdAndType)
-    const propId = propIdAndType[0];
-    print(propId)
-    const type = propIdAndType[1];
-       print(type)
-    const value = input; 
-      
-      
-       print(value)
+    const type = propIdAndType[0]
+    const propId = propIdAndType[1]
       
     if (value) {
       switch (type) {
@@ -165,12 +185,15 @@ Blueprint.onExecution = async function() {
           },
         };
         break;
-        case "select":
-        if (value !== "_select_null_") {
-          requestBody.properties[propId] = {
-            select: { id: value },
+        case "checkbox":
+        requestBody.properties[propId] = {
+              checkbox: value === "true" ? true : false
           };
-        }
+        break;
+        case "select":
+        requestBody.properties[propId] = {
+          select: { id: value },
+        };
         break;
         case "multi_select":
         requestBody.properties[propId] = {
@@ -185,16 +208,15 @@ Blueprint.onExecution = async function() {
       }
     }
   });
-    
-    print(JSON.stringify(requestBody))
-
+  
+  // Create page
   const response = await UrlFetch(apiURL + "v1/pages", {
     method: "post",
     headers: headers,
     body: JSON.stringify(requestBody),
   });
   const json = JSON.parse(response)
-  Blueprint.newResult(json.id,title)
-  print(JSON.stringify(json))
   
+  // Create result
+  Blueprint.newResult(json.id,title)  
 }
