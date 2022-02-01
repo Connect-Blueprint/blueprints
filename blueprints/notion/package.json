@@ -1,0 +1,42 @@
+{
+  "id": "notion",
+  "name": "Notion",
+  "description": "Fastest way to search and create Notion page.",
+  "icon": "notion-logo.png",
+  "author": "HenriChabrand",
+  "license": "MIT",
+  "actions": [
+    {
+      "id": "create-page",
+      "name": "Create Page",
+      "description": "Create page.",
+      "inputs":[
+        {
+          "id": "database_id",
+          "name": "Database",
+          "type": "select",
+          "required": true,          
+          "placeholder": "My Database"
+        },
+        {
+          "id": "page_title",          
+          "name": "Page Title",
+          "type": "text",
+          "required": true,
+          "placeholder": "My New Page"
+        }
+      ]
+    }
+  ],
+  "preferences": [
+    {
+      "id": "notion_token",
+      "type": "password",
+      "required": true,
+      "name": "Notion Token",
+      "description": "In Notion go to Settings & Members > Integration > Develop your own > New integration",
+      "placeholder": "secret_1l3892KIWCJHJVikbiyJ7",
+      "link": "https://www.notion.so/my-integrations"
+    }
+  ]
+}
