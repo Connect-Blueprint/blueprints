@@ -1,0 +1,25 @@
+{
+  "id": "sample-code",
+  "name": "Sample Code",
+  "description": "Blueprints example to get started.",
+  "icon": "icon.png",
+  "author": "HenriChabrand",
+  "license": "MIT",
+  "actions": [
+    {
+      "id": "debug-with-print",
+      "name": "Debug With Print",
+      "description": "Sample code with print() function."
+    }
+  ],
+  "preferences": [
+    {
+      "id": "some_preference_text",
+      "type": "text",
+      "required": true,
+      "name": "Some Preference Text",
+      "description": "Get preference value with Blueprint.userPreferences.some_preference_text",
+      "placeholder": "Hello World !"
+    }
+  ]
+}
