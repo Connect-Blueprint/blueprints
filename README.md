@@ -2,7 +2,7 @@
 Everything you need to extend Apple Shortcut.
 
 
-## Simple Framework
+## Framework
 ```javascript
 
 // When user request Blueprint inputs
