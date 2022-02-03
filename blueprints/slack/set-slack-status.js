@@ -1766,6 +1766,7 @@ const slackEmojis = {
   ":zombie": "🧟",
   ":zzz": "💤",
 };
-function listSlackEmojis(){    
-    return Object.keys(slackEmojis).map(function (code) { retrun { code, emoji: slackEmojis[code] }})
+
+function listSlackEmojis () {    
+    return Object.keys(slackEmojis).map( function(code) { return { code: code, emoji: slackEmojis[code] }});
 }
