@@ -15,10 +15,16 @@ let statusText = Blueprint.newInput("status_text", "Status Text", "text")
 // Set status_emoji select input
 let statusEmoji = Blueprint.newInput("status_emoji", "Status :emoji:", "select")
 
-// Set status_emoji select options (sync)
-listSlackEmojis().forEach(function (slackEmoji) {
-    statusEmoji.newOption(slackEmoji.code, slackEmoji.emoji + " " + slackEmoji.code, null)
-})
+// When interface request status_emoji options...
+statusEmoji.onListOptions = async function() {
+    
+    // Set status_emoji select options (sync)
+    listSlackEmojis().forEach(function (slackEmoji) {
+        statusEmoji.newOption(slackEmoji.code, slackEmoji.emoji + " " + slackEmoji.code, null)
+    })
+    
+}
+
 
 Blueprint.onExecution = async function() {
   
