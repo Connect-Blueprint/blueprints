@@ -32,7 +32,7 @@ Blueprint.onExecution = async function() {
   const requestBody = {
       profile: {
           status_text: ( statusText.getValue() ? statusText.getValue() : "" ),
-          status_emoji: ( statusEmoji.getValue() ? statusEmoji.getValue() : "" ),
+          status_emoji: ( statusEmoji.getValue() ? statusEmoji.getValue() : null ),
           status_expiration: 0
       }
   }
