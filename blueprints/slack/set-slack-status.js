@@ -11,17 +11,14 @@ const headers = {
 
 // Set status_text input
 let statusText = Blueprint.newInput("status_text", "Status Text", "text")
+
+// Set status_emoji select input
 let statusEmoji = Blueprint.newInput("status_emoji", "Status :emoji:", "select")
 
-
-// List available emojis when interface request to select one
-statusEmoji.onListOptions = async function() {
-    listSlackEmojis().forEach(function (slackEmoji) {
-        statusEmoji.newOption(slackEmoji.code, slackEmoji.emoji + " " + slackEmoji.code, null)
-    })
-}
-
-
+// Set status_emoji select options (sync)
+listSlackEmojis().forEach(function (slackEmoji) {
+    statusEmoji.newOption(slackEmoji.code, slackEmoji.emoji + " " + slackEmoji.code, null)
+})
 
 Blueprint.onExecution = async function() {
   
@@ -32,8 +29,7 @@ Blueprint.onExecution = async function() {
           status_emoji: ( statusEmoji.getValue() ? statusText.getValue() : "" ),
           status_expiration: 0
       }
-  }
-   
+  }   
   
   // Call set Satus Endpoint
   const response = await UrlFetch(apiURL + "users.profile.set", {
@@ -41,6 +37,10 @@ Blueprint.onExecution = async function() {
     headers: headers,
     body: JSON.stringify(requestBody),
   });
+    
+  // For debugging 
+  print(response)
+  
   const json = JSON.parse(response)
   
   // Create result
