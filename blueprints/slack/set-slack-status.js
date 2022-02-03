@@ -26,10 +26,10 @@ Blueprint.onExecution = async function() {
   const requestBody = {
       profile: {
           status_text: ( statusText.getValue() ? statusText.getValue() : "" ),
-          status_emoji: ( statusEmoji.getValue() ? statusText.getValue() : "" ),
+          status_emoji: ( statusEmoji.getValue() ? statusEmoji.getValue() : "" ),
           status_expiration: 0
       }
-  }   
+  }
   
   // Call set Satus Endpoint
   const response = await UrlFetch(apiURL + "users.profile.set", {
@@ -38,7 +38,7 @@ Blueprint.onExecution = async function() {
     body: JSON.stringify(requestBody),
   });
     
-  // For debugging 
+  // Use print() for debugging 
   print(response)
   
   const json = JSON.parse(response)
