@@ -8,9 +8,8 @@ Everything you need to extend Apple Shortcut.
 // When user request Blueprint inputs
 Blueprint.onListInputs = async function() {
     
-    // Create an input with
-    // Blueprint.newInput(id, name, type)
-    
+    // Create inputs with
+    // Blueprint.newInput(id, name, type)    
   
     // Create a `text` input
     let statusText = Blueprint.newInput("status_text", "Status Message", "text")
@@ -20,7 +19,7 @@ Blueprint.onListInputs = async function() {
     
     // Create a `select` input...
     let statusEmoji = Blueprint.newInput("status_emoji", "Status Emoji", "select")    
-    // And when user request statusEmoji options...
+    // and when user request statusEmoji options...
     statusEmoji.onListOptions = async function() {        
         //  add some options with
         // .newOption(id, name, icon?)
@@ -34,23 +33,18 @@ Blueprint.onListInputs = async function() {
 // When user run the Blueprint
 Blueprint.onExecution = async function() {
   
-  // Get user input values
-  let statusTextValue = Blueprint.userInputs.status_text
-  let statusExpirationValue = Blueprint.userInputs.status_expiration
-  let statusEmojiValue = Blueprint.userInputs.status_emoji
-  
-  // Set request body
+  // Get user input values with
+  // Blueprint.userInputs.input_id
   const requestBody = {
       profile: {
-          status_text: statusTextValue,          
-          status_expiration: statusExpirationValue,
-          status_emoji: statusEmojiValue
+          status_text: Blueprint.userInputs.status_text,          
+          status_expiration: Blueprint.userInputs.status_expiration,
+          status_emoji: Blueprint.userInputs.status_emoji
       }
   }
   
-  // Set headers 
   // Get user preference value with
-  // Blueprint.userPreferences.slack_token
+  // Blueprint.userPreferences.preference_id
   const headers = {
       "Authorization": "Bearer " + Blueprint.userPreferences.slack_token,
       "Content-Type": "application/json;charset=UTF-8",
@@ -64,7 +58,7 @@ Blueprint.onExecution = async function() {
     body: JSON.stringify(requestBody),
   });
     
-  // Use print() for debugging 
+  // Use print(string) for debugging 
   print(response)
   
   const json = JSON.parse(response)
