@@ -1,0 +1,33 @@
+{
+  "id": "spotify",
+  "name": "Spotify",
+  "description": "Fastest way to search and create Notion page.",
+  "icon": "notion-logo.png",
+  "author": "HenriChabrand",
+  "license": "MIT",
+  "actions": [
+    {
+      "id": "add-to-playlist",
+      "name": "Add to Playlist",
+      "description": "Add a Track to a Spotify playlist."
+    }
+  ],
+  "preferences": [
+    {
+      "id": "spotify_client_id",
+      "type": "text",
+      "required": true,
+      "name": "Client ID",
+      "description": "",
+      "placeholder": ""
+    },
+    {
+      "id": "spotify_client_secret",
+      "type": "password",
+      "required": true,
+      "name": "Client Secret",
+      "description": "",
+      "placeholder": ""
+    }
+  ]
+}
