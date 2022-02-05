@@ -96,7 +96,7 @@ Blueprint.onListInputs = async function() {
                     const propInput = Blueprint.newInput(inputId, name, "select")
                     // With corresponding input options...
                     property[property.type].options.map(function(option) {
-                        propInput.newOption(option.id, option.name, "https://raw.githubusercontent.com/HenriChabrand/ios-shortcut/main/extensions/notion/assets/ios_select_" + option.color + ".png")
+                        propInput.newOption(option.id, option.name, "https://raw.githubusercontent.com/Connect-Blueprint/blueprints/main/blueprints/notion/assets/ios_select_" + option.color + ".png")
                     })                    
                 }
             }
