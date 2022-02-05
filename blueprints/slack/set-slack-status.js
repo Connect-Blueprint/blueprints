@@ -15,6 +15,9 @@ let statusText = Blueprint.newInput("status_text", "Status Text", "text")
 // Set status_emoji select input
 let statusEmoji = Blueprint.newInput("status_emoji", "Status :emoji:", "select")
 
+// Set status_expiration date input
+let statusExpiration = Blueprint.newInput("status_expiration", "Status Expiration Date", "date")
+
 // When interface request status_emoji options...
 statusEmoji.onListOptions = async function() {
     
@@ -29,13 +32,28 @@ statusEmoji.onListOptions = async function() {
 Blueprint.onExecution = async function() {
   
   // Set request body
-  const requestBody = {
+  var requestBody = {
       profile: {
           status_text: ( statusText.getValue() ? statusText.getValue() : "" ),
           status_emoji: ( statusEmoji.getValue() ? statusEmoji.getValue() : null ),
           status_expiration: 0
       }
   }
+  
+  if(statusExpiration.getValue()){
+     
+    print(statusExpiration.getValue().replace(".000Z",""))
+
+    var expirationDate = new Date(statusExpiration.getValue().replace(".000Z",""));
+    print(expirationDate)
+     
+    var expirationStamp = expirationDate.getTime() / 1000;
+    print(expirationStamp)
+     
+    requestBody.profile.status_expiration = expirationStamp
+  }
+  
+
   
   // Call set Satus Endpoint
   const response = await UrlFetch(apiURL + "users.profile.set", {
