@@ -40,20 +40,12 @@ Blueprint.onExecution = async function() {
       }
   }
   
+  // Add status_expiration if set
   if(statusExpiration.getValue()){
-     
-    print(statusExpiration.getValue().replace(".000Z",""))
-
-    var expirationDate = new Date(statusExpiration.getValue().replace(".000Z",""));
-    print(expirationDate)
-     
+    var expirationDate = new Date(statusExpiration.getValue().replace(".000Z",""));     
     var expirationStamp = expirationDate.getTime() / 1000;
-    print(expirationStamp)
-     
     requestBody.profile.status_expiration = expirationStamp
   }
-  
-
   
   // Call set Satus Endpoint
   const response = await UrlFetch(apiURL + "users.profile.set", {
