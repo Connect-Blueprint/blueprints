@@ -47,8 +47,8 @@ Blueprint.onExecution = async function() {
      
     print(statusExpiration.getValue().replace(".000Z",""))
 
-    var expirationDate = Date.parse(statusExpiration.getValue().replace(".000Z",""));
-     print(expirationDate)
+    var expirationDate = new Date(statusExpiration.getValue().replace(".000Z",""));
+    print(expirationDate)
      
     var expirationTime = expirationDate.getTime();
     print(expirationTime)
