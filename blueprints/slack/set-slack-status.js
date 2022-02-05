@@ -30,9 +30,6 @@ statusEmoji.onListOptions = async function() {
 
 
 Blueprint.onExecution = async function() {
-    
- 
-    
   
   // Set request body
   var requestBody = {
@@ -43,20 +40,14 @@ Blueprint.onExecution = async function() {
       }
   }
   
-   if(statusExpiration.getValue()){
+  if(statusExpiration.getValue()){
      
     print(statusExpiration.getValue().replace(".000Z",""))
 
     var expirationDate = new Date(statusExpiration.getValue().replace(".000Z",""));
     print(expirationDate)
      
-    var expirationTime = expirationDate.getTime();
-    print(expirationTime)
-    
-    var localOffset = (-1) * expirationDate.getTimezoneOffset() * 60000;
-    print(localOffset)
-     
-    var expirationStamp = Math.round(new Date(expirationTime + localOffset).getTime() / 1000);
+    var expirationStamp = expirationDate.getTime() / 1000;
     print(expirationStamp)
      
     requestBody.profile.status_expiration = expirationStamp
