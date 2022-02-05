@@ -32,9 +32,9 @@ statusEmoji.onListOptions = async function() {
 Blueprint.onExecution = async function() {
     
       if(statusExpiration.getValue()){
-      print(statusExpiration.getValue())
-       print(Date.parse(statusExpiration.getValue()))
-      print(Date.parse(statusExpiration.getValue())/1000)
+      print(statusExpiration.getValue().replace(".000Z",""))
+       print(Date.parse(statusExpiration.getValue().replace(".000Z","")))
+      print(Date.parse(statusExpiration.getValue().replace(".000Z",""))/1000)
   }
     
   
