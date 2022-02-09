@@ -25,7 +25,8 @@
     {
       "id": "set-slack-status",
       "name": "Set Slack Status",
-      "description": "Set Slack Status."
+      "description": "Set Slack Status.",
+      "auth_scope": ["users.profile:write"]
     }
   ]
 }
