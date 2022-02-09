@@ -1,0 +1,21 @@
+{
+  "id": "spotify",
+  "name": "Spotify",
+  "description": "Set save track on Spotify playlist.",
+  "icon": "icon.png",
+  "author": "HenriChabrand",
+  "license": "MIT",
+  "authentification": {
+    "method": "oauth_2",
+    "authorize_url": "https://accounts.spotify.com/en/authorize",
+    "access_token_url": "https://accounts.spotify.com/api/token"
+  },
+  "preferences": [],
+  "actions": [
+    {
+      "id": "add-track-to-playlist",
+      "name": "Add Track to Playlist",
+      "description": "Add Track to Playlist."
+    }
+  ]
+}
