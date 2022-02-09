@@ -9,8 +9,6 @@ const headers = {
     "Content-Type": "application/json;charset=UTF-8",
 };
 
-print("headers")
- print(JSON.stringify(headers))
 // Set status_text input
 let statusText = Blueprint.newInput("status_text", "Status Text", "text")
 
@@ -54,10 +52,7 @@ Blueprint.onExecution = async function() {
      
     requestBody.profile.status_expiration = expirationStamp
   }
-  
-
-  print(JSON.stringify(headers))
-    print(requestBody)
+ 
   // Call set Satus Endpoint
   const response = await UrlFetch(apiURL + "users.profile.set", {
     method: "post",
