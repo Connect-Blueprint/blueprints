@@ -10,17 +10,7 @@
     "authorize_url": "https://slack.com/oauth/authorize",
     "access_token_url": "https://slack.com/api/oauth.access"
   },
-  "preferences": [
-    {
-      "id": "slack_token",
-      "type": "password",
-      "required": true,
-      "name": "Slack Token",
-      "description": "Create Slack App > Add `users.profile:write` Scope > Install App > Copy Access Token",
-      "placeholder": "xoxp-0000000-000000000",
-      "link": "https://api.slack.com/apps?new_app=1"
-    }
-  ],
+  "preferences": [],
   "actions": [
     {
       "id": "set-slack-status",
