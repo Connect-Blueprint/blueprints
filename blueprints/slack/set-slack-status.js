@@ -5,7 +5,7 @@ const apiURL = "https://slack.com/api/";
 // Set headers 
 // Get API token with → Blueprint.userPreferences.slack_token
 const headers = {
-    "Authorization": "Bearer " + Blueprint.userPreferences.slack_token,
+    "Authorization": "Bearer " + Blueprint.userAuthentification.accessToken,
     "Content-Type": "application/json;charset=UTF-8",
 };
 
