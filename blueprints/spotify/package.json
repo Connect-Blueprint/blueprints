@@ -15,7 +15,8 @@
     {
       "id": "add-track-to-playlist",
       "name": "Add Track to Playlist",
-      "description": "Add Track to Playlist."
+      "description": "Add Track to Playlist.",
+      "auth_scope":["playlist-modify-private"]
     }
   ]
 }
