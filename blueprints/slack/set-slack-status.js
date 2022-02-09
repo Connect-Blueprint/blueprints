@@ -3,9 +3,9 @@
 const apiURL = "https://slack.com/api/";
 
 // Set headers 
-// Get API token with → Blueprint.userPreferences.slack_token
+// Get API token with → Blueprint.userAuthentification.accessToken
 const headers = {
-    "Authorization": "Bearer " + Blueprint.userPreferences.slack_token,
+    "Authorization": "Bearer " + Blueprint.userAuthentification.accessToken,
     "Content-Type": "application/json;charset=UTF-8",
 };
 
@@ -46,7 +46,7 @@ Blueprint.onExecution = async function() {
     var expirationStamp = expirationDate.getTime() / 1000;
     requestBody.profile.status_expiration = expirationStamp
   }
-  
+
   // Call set Satus Endpoint
   const response = await UrlFetch(apiURL + "users.profile.set", {
     method: "post",
