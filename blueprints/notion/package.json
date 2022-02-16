@@ -5,6 +5,11 @@
   "icon": "notion-logo.png",
   "author": "HenriChabrand",
   "license": "MIT",
+  "authentification": {
+    "method": "oauth_2",
+    "authorize_url": "https://accounts.spotify.com/en/authorize",
+    "access_token_url": "https://accounts.spotify.com/api/token"
+  },
   "actions": [
     {
       "id": "create-page",
