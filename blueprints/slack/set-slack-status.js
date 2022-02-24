@@ -13,7 +13,10 @@ const headers = {
 let statusText = Blueprint.newInput("status_text", "Status Text", "text")
 
 // Set status_emoji select input
-let statusEmoji = Blueprint.newInput("status_emoji", "Status :emoji:", "select")
+let statusEmoji = Blueprint.newInput("status_emoji", "Status Emoji (select)", "select")
+
+// Set status_emoji_text text input
+let statusEmojiText = Blueprint.newInput("status_emoji_text", "Status Emoji (:croissant: or 🥐)", "text")
 
 // Set status_expiration date input
 let statusExpiration = Blueprint.newInput("status_expiration", "Status Expiration Date", "date")
@@ -31,11 +34,23 @@ statusEmoji.onListOptions = async function() {
 
 Blueprint.onExecution = async function() {
   
+  // Get emoji
+  var emojiValue = ( statusEmoji.getValue() ? statusEmoji.getValue() : null )
+  var emojiTextValue = ( statusEmojiText.getValue() ? statusEmojiText.getValue() : null )
+  if(!emojiValue && emojiTextValue){
+      var matchingEmoji = Object.keys(slackEmojis).find(key => slackEmojis[key] === emojiTextValue)
+      if(matchingEmoji){
+          emojiValue = matchingEmoji
+      } else {
+          emojiValue = emojiTextValue
+      }
+  }
+  
   // Set request body
   var requestBody = {
       profile: {
           status_text: ( statusText.getValue() ? statusText.getValue() : "" ),
-          status_emoji: ( statusEmoji.getValue() ? statusEmoji.getValue() : null ),
+          status_emoji: emojiValue,
           status_expiration: 0
       }
   }
