@@ -1,9 +1,5 @@
 # Blueprint
 Everything you need to extend Apple Shortcut.
-<br>
-<br>
-<a href="https://www.buymeacoffee.com/henrichabrand" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 108.5px !important;" ></a>
-
 
 ## Framework
 ```javascript
