@@ -22,7 +22,7 @@
       "id": "send-direct-message",
       "name": "Send Direct Message",
       "description": "Send a direct Slack message to a user.",
-      "auth_scope": ["users.profile:write","search:read"]
+      "auth_scope": ["users.profile:write","users:read"]
     }
     
   ]
