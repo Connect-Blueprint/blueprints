@@ -12,7 +12,8 @@
       "description": "Send a prompt to ChatGPT for generating a response."
     }
   ],
-  "p{
+  "preferences": [
+    {
       "id": "openai_access_token",
       "type": "text",
       "required": true,
