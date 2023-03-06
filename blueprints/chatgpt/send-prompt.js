@@ -39,7 +39,7 @@ Blueprint.onExecution = async function() {
 
   // Call OpenAI API with
   // UrlFetch(url, options?)
-  const response = await UrlFetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
+  const response = await UrlFetch("https://api.openai.com/v1/engines/gpt-3.5-turbo/completions", {
     method: "post",
     headers: {
       "Authorization": "Bearer " + Blueprint.userPreferences.openai_access_token,
