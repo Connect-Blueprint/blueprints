@@ -1,0 +1,24 @@
+{
+  "id": "chatgpt",
+  "name": "ChatGPT",
+  "description": "A language model trained by OpenAI.",
+  "icon": "icon.png",
+  "author": "OpenAI",
+  "license": "MIT",
+  "actions": [
+    {
+      "id": "send-prompt",
+      "name": "Send Prompt",
+      "description": "Send a prompt to ChatGPT for generating a response."
+    }
+  ],
+  "p{
+      "id": "openai_access_token",
+      "type": "text",
+      "required": true,
+      "name": "OpenAPI Access Token",
+      "description": "",
+      "placeholder": "sk-000000000000"
+    }
+  ]
+}
