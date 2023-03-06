@@ -32,14 +32,13 @@ Blueprint.onExecution = async function() {
   // Get user input values with
   // Blueprint.userInputs.input_id
   const requestBody = {
-      prompt: Blueprint.userInputs.question,
-      max_tokens: parseInt(Blueprint.userInputs.max_tokens),
-      temperature: parseFloat(Blueprint.userInputs.temperature)
+    "model": "gpt-3.5-turbo",
+    "messages": [{"role": "user", "content": Blueprint.userInputs.question}]
   }
 
   // Call OpenAI API with
   // UrlFetch(url, options?)
-  const response = await UrlFetch("https://api.openai.com/v1/engines/gpt-3.5-turbo/completions", {
+  const response = await UrlFetch("https://api.openai.com/v1/chat/completions", {
     method: "post",
     headers: {
       "Authorization": "Bearer " + Blueprint.userPreferences.openai_access_token,
@@ -54,6 +53,6 @@ Blueprint.onExecution = async function() {
   const json = JSON.parse(response)
 
   // Create result
-  Blueprint.newResult("success", json.choices[0].text.trim())
+  Blueprint.newResult("success", json.choices[0].message.content)
 
 }
