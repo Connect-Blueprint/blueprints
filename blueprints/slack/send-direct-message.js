@@ -28,7 +28,12 @@ Blueprint.onListInputs = async function() {
       
       // Create options from the list of users
       json.members.forEach(member => {
-        recipientUser.newOption(member.id, member.name)
+        // If the user has a profile picture, include it as an icon for the option
+        let icon = null;
+        if (member.profile && member.profile.image_48) {
+          icon = member.profile.image_48;
+        }
+        recipientUser.newOption(member.id, member.name, icon);
       })
       
     }
